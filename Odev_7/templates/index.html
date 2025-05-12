@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ödev 7 - Flask Uygulaması</title>
+  </head>
+  <body>
+    <h1>Öğrenci Bilgileri</h1>
+    <p>İsim: Mehmet Ayberk DAŞAR</p>
+    <p>Öğrenci Numarası: 211220006</p>
+
+    <h2>Rastgele Noktalarla Görsel</h2>
+    <img
+      id="plot"
+      src="static/images/plot.png"
+      alt="Plot"
+    />
+    <br />
+    <button onclick="refreshImage()">Yeni Görsel Oluştur</button>
+
+    <script>
+      function refreshImage() {
+        fetch("/generate_plot")
+          .then((response) => response.json())
+          .then((data) => {
+            // Benzersiz bir parametre ekleyerek resim URL'sini güncelle
+            const timestamp = new Date().getTime();
+            document.getElementById("plot").src =
+              data.new_image_url + "?t=" + timestamp;
+          });
+      }
+    </script>
+  </body>
+</html>
